@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  test:
+    volumes:
+      - .:/usr/src/app
+    build:
+      context: .
+      dockerfile: pytest.dockerfile
+    network_mode: bridge
