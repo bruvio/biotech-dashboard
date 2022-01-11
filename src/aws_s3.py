@@ -137,8 +137,7 @@ def read_df_from_s3(historical_file_name, bucket):
 
     # load historical data from s3
     data_obj = s3.get_object(Bucket=bucket, Key=historical_file_name)
-    data = pd.read_csv(data_obj["Body"], low_memory=False)
-    return data
+    return pd.read_csv(data_obj["Body"], low_memory=False)
 
 
 if __name__ == "__main__":
