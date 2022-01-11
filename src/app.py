@@ -28,8 +28,7 @@ logger.setLevel(logging.INFO)
 
 
 def create_app():
-    app = flask.Flask(__name__)
-    return app
+    return flask.Flask(__name__)
 
 
 server = create_app()
@@ -72,13 +71,13 @@ def serve_layout():
                 logger.warning("\n error reading database or empty database")
                 return html.Div("lallero! \n There is an error!")
             # extracting exp/simulation labels
-            test_outcomes = []
-            for outcome in labels[" Assay Result Label"].unique():
-
-                test_outcomes.append({"label": str(outcome), "value": outcome})
+            test_outcomes = [
+                {"label": str(outcome), "value": outcome}
+                for outcome in labels[" Assay Result Label"].unique()
+            ]
 
             # creating a dictionary containing compound ids for a given label
-            compounds = dict()
+            compounds = {}
 
             for label in labels[" Assay Result Label"].unique():
                 filtered_df = df[df["Label"] == label]
@@ -137,7 +136,7 @@ def set_compound_options(testlabel):
         _, _, labels, df = get_data()
     except Exception:
         logger.warning("\n error reading database or empty database")
-    compounds = dict()
+    compounds = {}
 
     for label in labels[" Assay Result Label"].unique():
         filtered_df = df[df["Label"] == label]
@@ -205,9 +204,7 @@ def update_figure1(selected, compound):
     filtered_df = df[df["Label"] == selected]
     compound_df = filtered_df[filtered_df["ID"] == compound]
 
-    traces = []
-
-    traces.append(
+    traces = [
         go.Scatter(
             x=compound_df["Concentration"],
             y=compound_df["Inhibition"],
@@ -215,8 +212,10 @@ def update_figure1(selected, compound):
             opacity=0.7,
             marker={"size": 15},
             name="ID " + str(compound),
-        ),
-    )
+        )
+    ]
+
+
     ydata = np.asarray(compound_df["Inhibition"])
     xdata = np.asarray(compound_df["Concentration"])
     p0 = [100, 1]  # this is an mandatory initial guess

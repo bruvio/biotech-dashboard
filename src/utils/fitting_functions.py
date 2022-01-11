@@ -6,8 +6,7 @@ logger = logging.getLogger()
 
 
 def sigmoid(x, L, x0, k, b):
-    y = L / (1 + np.exp(-k * (x - x0))) + b
-    return y
+    return L / (1 + np.exp(-k * (x - x0))) + b
 
 
 def exp_func(x, a, b):
